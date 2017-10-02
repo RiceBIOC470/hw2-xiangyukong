@@ -15,9 +15,17 @@ zz = meannonan(xx);
 %zz is a single number (the average of all non-NaN entries in xx). Explain
 %this behavior. 
 
+%the function meannonan include a session where the Nan are replace by a[],which the system can recognise to skip.
+%and mean itself means to get the average of the whole column,which when
+%processed through the meannonan,we don't have single columns with same
+%amount of element to average,so matlab consider the only thing that make
+%sense, which is averaging all.a presumption of this claim would be that
+%NaN is recognized as a number,just invulnerable to calculation.
+
 % Part 2. Modify the meannonan code so that it behaves as the mean function
 % and produces a row vector where each entry is the average of each column
-% and in the column with a NaN, this NaN is ignored. 
+% and in the column with a NaN, this NaN is ignored.
+
 
 %% Problem 2. ORFs using functions
 % In this problem we will use functions to simplify and extend our code from HW1, prob 2 
@@ -47,27 +55,34 @@ zz = meannonan(xx);
 % Part 5. Write code that uses your function from part 4 to make a single
 % plot with separate curves for ORF lengths 100,200,300,and 400. Make sure
 % your plot has appropriate axis labels and legend. 
-
+plotprobabilityORF(100);hold on;
+plotprobabilityORF(200);hold on;
+plotprobabilityORF(300);hold on;
+plotprobabilityORF(400);
+xlabel('Sequence length', 'FontSize', 15);
+ylabel('Probability', 'FontSize', 15);
+legend({'ORF100','ORF200','ORF300','ORF400'},'FontSize', 15);
 %% Problem 3. Codon translation and optimization
 
 % DNA sequence gets translated into protein through a code known as the
 % genetic code. Every sequence of 3 base pairs (a codon) is translated into
 % 1 amino acid. The first two columns of the file codons.csv file in this repository 
 % give the correspondence between codons and amino acids. 
-
+dnaseq=randseq(200)
 % Part 1. Fill in the function dna2protein.m so that it takes any
 % dnasequence and translates it to protein. The second argument -  frame -
 % should take on values of 1,2, or 3 and should refer to whether the
 % translation should start from the 1st, 2nd or 3rd base pair (that is,
 % which reading frame to use). Make your code returns an error and
 % appropriate message if frame isn't 1,2, or 3. 
-
+proteinseq=dna2protein(dnaseq,3)
 
 % Part 2. Write code to turn your protein sequence back into DNA sequence.
 % Call your function protein2dna.m
 % Notice that there isn't a unique way to do this. For example, there are 4
 % different codons that correspond to the amino acid Gly. For a first pass,
 % choose one of these codons at random.
+protein2dna(proteinseq)
 %
 % Part 3. The third column of the codons.csv file contains the frequency of
 % this codon's use in the human proteome in units of number of appearances per
@@ -82,4 +97,4 @@ zz = meannonan(xx);
 % information in the third column of codons.csv. 
 % In other words, for any amino acid, it always uses the codon that appears
 % most frequently in the human proteome. 
-%
+protein2dnaOptimized(proteinseq)
